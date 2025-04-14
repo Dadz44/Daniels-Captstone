@@ -1,0 +1,8 @@
+1. signup is a form with entries (first_name,last_name,email,password, password2,date_of_birth,bio,location).
+2. login is a form with entries (email,password)
+3. create is a form with entries (body and image), image upload is optional
+4. comment is a form with entries(comment and image), image upload is optional
+5. profile edit is a form with entries(name,bio,location,date_of_birth,photo)
+6. user edit is a form with entries (first_name,last_name,date_of_birth)
+
+Note: I used Postman for all my  tests as thunderclient requires an upgraded services for access to post forms.
