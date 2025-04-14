@@ -25,7 +25,7 @@ def signup(request):
                 'first_name':new_user.first_name,
                 'last_name':new_user.last_name,
                 'email':new_user.email,
-                'date_of_birth':new_user.date_of_birth
+                'date_of_birth':new_user.date_of_birth.strftime('%Y-%m-%d')
             }
 
             profile_data ={
@@ -36,11 +36,11 @@ def signup(request):
                 'location':request.POST.get('location'),
                 'photo':request.FILES.get('photo')
             }
-
+            
             profiles = Profile.objects.create(**profile_data)
 
             user_profile_data ={
-              'date_of_birth': new_user.date_of_birth,
+              'date_of_birth':profiles.date_of_birth.strftime('%Y-%m-%d') if profiles.date_of_birth else None,
               'bio': profiles.bio,
               'photo': str(profiles.photo.url) if profiles.photo else None,
               'location':profiles.location
@@ -224,7 +224,10 @@ def delete_comment(request,comment_id):
 @login_required_json
 def post_view(request):
     
-    user =request.user
+    user = request.user
+
+    profile = Profile.objects.get(user=user)
+    
 
     followed_users =user.profile.following.all()
     print(followed_users)
@@ -302,7 +305,7 @@ def post_detail(request,post_id):
             'id':comment.id,
             'comment':comment.comment,
             'author':comment.author.email,
-            'image':request.build_absolute_uri(comments.image.url) if comments.image else None,
+            'image':request.build_absolute_uri(comment.image.url) if comment.image else None,
             'created_on':comment.created_on.strftime('%Y-%m-%d %H:%M'),
         })
 
