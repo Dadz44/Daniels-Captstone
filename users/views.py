@@ -33,7 +33,6 @@ def signup(request):
                 'user': new_user,   
                 'bio': request.POST.get('bio'),
                 'date_of_birth':new_user.date_of_birth,
-                'date_of_birth':new_user.date_of_birth.strftime('%d %B %Y'),
                 'location':request.POST.get('location'),
                 'photo':request.FILES.get('photo')
             }
@@ -42,7 +41,6 @@ def signup(request):
 
             user_profile_data ={
               'date_of_birth': new_user.date_of_birth,
-              'date_of_birth': new_user.date_of_birth.strftime('%d %B %Y'),
               'bio': profiles.bio,
               'photo': str(profiles.photo.url) if profiles.photo else None,
               'location':profiles.location
